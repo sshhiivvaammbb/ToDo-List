@@ -1,6 +1,7 @@
 
 import { useState } from 'react';
 import Todolists from './Todolists';
+import "./index.css"
 
 
 
@@ -21,6 +22,16 @@ const listOfItems = () => {
     return [...oldItems , inputList];
   } )
   setInputList("");
+  
+};
+
+const delItems = (id) =>{
+  setItems ((oldItems) =>{ 
+  return oldItems.filter((arrElem , index) => {
+    return index !== id;
+    
+  })  
+})    
 };
 
   return (
@@ -34,11 +45,21 @@ const listOfItems = () => {
 
           <input type="text" placeholder='Add an item' value={inputList} onChange={itemEvent} />
           <button onClick={listOfItems}> + </button>
+          
+          
+          
           <ol>
              
-             {Items.map( (itemval) => {
+             {Items.map( (itemval , index) => {
               
-               return <Todolists text={itemval}/>
+               return <Todolists 
+               key={index} 
+               id={index} 
+               text={itemval}
+               onSelect = {delItems}/>
+               
+               
+               
              })}
 
           </ol>
